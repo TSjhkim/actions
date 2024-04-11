@@ -1,25 +1,16 @@
 name: Deploy SQL to MSSQL
  
 on: [push]
-  #push:
-    #paths:
-      #- '**/*.sql'  # SQL 파일이 수정될 때만 실행
  
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
     - name: Deploy SQL to MSSQL
       env:
         MSSQL_HOST: ${{ secrets.MSSQL_HOST }}
         MSSQL_USER: ${{ secrets.MSSQL_USER }}
         MSSQL_PASSWORD: ${{ secrets.MSSQL_PASSWORD }}
       run: |
-        # SQL 파일 배포 스크립트 실행
-        # PowerShell 스크립트를 사용하여 SQL 파일 실행
-        $sqlFiles = Get-ChildItem -Path . -Filter "*.sql" -Recurse
-        foreach ($file in $sqlFiles) {
-          sqlcmd -S $env:MSSQL_HOST -U $env:MSSQL_USER -P $env:MSSQL_PASSWORD -i $file.FullName
-        }
+        echo "CREATE TABLE test (id INT, name VARCHAR(50));" > create_test_table.sql
+        sqlcmd -S $MSSQL_HOST -U $MSSQL_USER -P $MSSQL_PASSWORD -d actions1 -i create_test_table.sql
