@@ -1,9 +1,9 @@
 name: Deploy SQL to MSSQL
  
-on:
-  push:
-    paths:
-      - '**/*.sql'  # SQL 파일이 수정될 때만 실행
+on: [push]
+  #push:
+    #paths:
+      #- '**/*.sql'  # SQL 파일이 수정될 때만 실행
  
 jobs:
   deploy:
