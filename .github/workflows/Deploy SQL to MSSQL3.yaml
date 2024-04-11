@@ -1,0 +1,36 @@
+name: Deploy SQL to MSSQL3
+
+on:
+  push:
+    paths:
+      - '**.sql'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Deploy SQL to MSSQL
+        env:
+          MSSQL_HOST: ${{ secrets.MSSQL_HOST }}
+          MSSQL_USER: ${{ secrets.MSSQL_USER }}
+          MSSQL_PASSWORD: ${{ secrets.MSSQL_PASSWORD }}
+        run: |
+          for file in $(find . -name '*.sql'); do
+            # Calculate hash of the current file
+            current_hash=$(md5sum "$file" | awk '{print $1}')
+            
+            # Get the previous hash from a tracking file
+            tracking_file=".sql_tracking"
+            previous_hash=$(grep "$file" "$tracking_file" | awk '{print $2}')
+            
+            # If previous hash exists and it's different from the current hash, execute SQL
+            if [ -n "$previous_hash" ] && [ "$previous_hash" != "$current_hash" ]; then
+              sqlcmd -S $MSSQL_HOST -U $MSSQL_USER -P $MSSQL_PASSWORD -d actions1 -i "$file"
+            fi
+            
+            # Update or add the hash of the current file to the tracking file
+            grep -q "$file" "$tracking_file" && sed -i "s|$file.*|$file $current_hash|" "$tracking_file" || echo "$file $current_hash" >> "$tracking_file"
+          done
