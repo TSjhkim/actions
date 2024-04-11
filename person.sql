@@ -1,5 +1,5 @@
 CREATE TABLE Person (
-    Name NVARCHAR(41),
+    Name NVARCHAR(40),
     Age INT,
     Height INT
 );
