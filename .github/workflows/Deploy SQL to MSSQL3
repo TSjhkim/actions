@@ -1,0 +1,29 @@
+name: Deploy SQL to MSSQL3
+
+on:
+  push:
+    paths:
+      - '**.sql'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: List changed SQL files
+        id: list_files
+        run: |
+          echo "::set-output name=changed_files::$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '.sql')"
+
+      - name: Deploy changed SQL files to MSSQL
+        if: steps.list_files.outputs.changed_files != ''
+        env:
+          MSSQL_HOST: ${{ secrets.MSSQL_HOST }}
+          MSSQL_USER: ${{ secrets.MSSQL_USER }}
+          MSSQL_PASSWORD: ${{ secrets.MSSQL_PASSWORD }}
+        run: |
+          for file in ${{ steps.list_files.outputs.changed_files }}; do
+            sqlcmd -S $MSSQL_HOST -U $MSSQL_USER -P $MSSQL_PASSWORD -d actions1 -i $file
+          done
