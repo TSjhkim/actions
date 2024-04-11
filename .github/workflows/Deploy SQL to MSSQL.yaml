@@ -1,6 +1,6 @@
 name: Deploy SQL to MSSQL
  
-on: [push]
+on: [stop]
  
 jobs:
   deploy:
