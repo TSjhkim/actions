@@ -1,0 +1,19 @@
+name: Deploy SQL to MSSQL 2
+on: [push]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+    - name: Deploy SQL to MSSQL
+      env:
+        MSSQL_HOST: ${{ secrets.MSSQL_HOST }}
+        MSSQL_USER: ${{ secrets.MSSQL_USER }}
+        MSSQL_PASSWORD: ${{ secrets.MSSQL_PASSWORD }}
+      run: |
+        $sqlFiles = Get-ChildItem -Path . -Filter "*.sql" -Recurse
+        foreach ($file in $sqlFiles) {
+          sqlcmd -S $MSSQL_HOST -U $MSSQL_USER -P $MSSQL_PASSWORD -i $file.FullName
+        }
