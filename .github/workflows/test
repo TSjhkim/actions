@@ -1,0 +1,16 @@
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+    - name: Deploy SQL to MSSQL
+      env:
+        MSSQL_HOST: ${{ secrets.MSSQL_HOST }}
+        MSSQL_USER: ${{ secrets.MSSQL_USER }}
+        MSSQL_PASSWORD: ${{ secrets.MSSQL_PASSWORD }}
+      run: |
+        # SQL 파일 배포 스크립트 실행
+        # PowerShell 스크립트를 사용하여 SQL 파일 실행
+        $sqlFiles = Get-ChildItem -Path . -Filter "*.sql" -Recurse
+        foreach ($file in $sqlFiles) {
+          sqlcmd -S $env:MSSQL_HOST -U $env:MSSQL_USER -P $env:MSSQL_PASSWORD -i $file.FullName
+        }
