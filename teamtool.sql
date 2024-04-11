@@ -5,4 +5,4 @@ CREATE TABLE Teamtool (
 );
 
 INSERT INTO Teamtool (Product, Version, Users)
-VALUES ('Space', 2024, 100), ('CodeCanvas', 2024, 200);
+VALUES ('Space', 2024, 100), ('CodeCanvas', 2024, 200), ('IDE Provisioner', 2024, 300);
