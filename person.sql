@@ -3,3 +3,6 @@ CREATE TABLE Person (
     Age INT,
     Height INT
 );
+
+INSERT INTO Person (Name, Age, Height)
+VALUES ('Kim', 20, 180);
