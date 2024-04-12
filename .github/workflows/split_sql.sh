@@ -11,7 +11,7 @@ find . -type f -name "*.sql" | while IFS= read -r file; do
         if (tolower($0) ~ /create/) {
             print > ("create_" count ".sql")
         } else {
-            print > ("tmp_" count ".sql")
+            print > ("other_" count ".sql")
         }
         count++
     }' "$file"
