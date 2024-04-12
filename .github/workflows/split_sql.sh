@@ -5,6 +5,5 @@ git clone https://github.com/TSjhkim/actions1.git
 cd actions1
 
 find . -type f -name "*.sql" | while IFS= read -r file; do
-    mkdir -p /home/tmp
-    awk -v RS=';' '{print > ("/home/tmp/tmp_" NR ".sql")}' "$file"
+    awk -v RS=';' '{print > ("/home/tmp_" NR ".sql")}' "$file"
 done
