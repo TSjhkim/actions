@@ -25,9 +25,11 @@ jobs:
         run: |
           for file in $(find $SQL_FILES_PATH  -name ".sql"); do
           if [[ -n "$(find "$SQL_FILES_PATH" -name "*.sql")" ]]; then
-           echo "YES"
+            A=1
           else
-           echo "NO"
+            A=0
           fi
+
+          echo $A
             #sqlcmd -S $MSSQL_HOST -U $MSSQL_USER -P $MSSQL_PASSWORD -d actions1 -i $file
           done
