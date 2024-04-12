@@ -15,7 +15,7 @@ jobs:
       - name: Run split_sql.sh
         run: |
           chmod +x ./split_sql.sh
-          ./split_sql.sh
+          ./split_sql.sh actions1/person.sql
 
       - name: Deploy SQL to MSSQL
         env:
