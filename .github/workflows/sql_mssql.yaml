@@ -11,8 +11,8 @@ jobs:
     steps:
       - name: Run split_sql.sh
         run: |
-          chmod +x https://github.com/TSjhkim/actions1/blob/master/.github/workflows/split_sql.sh
-          https://github.com/TSjhkim/actions1/blob/master/.github/workflows/split_sql.sh
+          chmod +x github.com/TSjhkim/actions1/blob/master/.github/workflows/split_sql.sh
+          github.com/TSjhkim/actions1/blob/master/.github/workflows/split_sql.sh
           
       - name: Checkout repository
         uses: actions/checkout@v2
