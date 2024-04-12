@@ -5,4 +5,4 @@ CREATE TABLE Person (
 );
 
 INSERT INTO Person (Name, Age, Height)
-VALUES ('Kim', 20, 181);
+VALUES ('Kim', 20, 180);
