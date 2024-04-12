@@ -1,10 +1,10 @@
-split_sql_file() {
-    local input_file="$1"
-    awk -v RS=';' '{print > ("tmp_" NR ".sql")}' "$input_file"
-}
-split_sql_file "$1"
-for file in tmp_*.sql; do
-    echo "Executing $file"
-    sqlite3 your_database.db < "$file"
+git clone https://github.com/TSjhkim/actions1.git
+cd actions1
+
+find . -type f -name "*.sql" | while IFS= read -r file; do
+    awk -v RS=';' '{print > ("tmp_" NR ".sql")}' "$file"
+    git add tmp_*.sql
+    git commit -m "Add split SQL files from $file"
 done
-rm tmp_*.sql
+
+git push https://github.com/TSjhkim/actions1.git master
