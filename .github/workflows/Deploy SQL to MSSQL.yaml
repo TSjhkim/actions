@@ -12,6 +12,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
+      - name: Run split_sql.sh
+        run: |
+          chmod +x ./split_sql.sh
+          ./split_sql.sh
+
       - name: Deploy SQL to MSSQL
         env:
           MSSQL_HOST: ${{ secrets.MSSQL_HOST }}
