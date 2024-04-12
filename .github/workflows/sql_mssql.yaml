@@ -23,6 +23,9 @@ jobs:
           MSSQL_USER: ${{ secrets.MSSQL_USER }}
           MSSQL_PASSWORD: ${{ secrets.MSSQL_PASSWORD }}
         run: |
-          for file in $(find $SQL_FILES_PATH  -name "*.sql"); do
+          for file in $(find $SQL_FILES_PATH  -name "create_*.sql"); do
+            sqlcmd -S $MSSQL_HOST -U $MSSQL_USER -P $MSSQL_PASSWORD -d actions1 -i $file
+          done
+          for file in $(find $SQL_FILES_PATH  -name "tmp_*.sql"); do
             sqlcmd -S $MSSQL_HOST -U $MSSQL_USER -P $MSSQL_PASSWORD -d actions1 -i $file
           done
