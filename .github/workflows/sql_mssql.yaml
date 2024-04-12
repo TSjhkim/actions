@@ -9,6 +9,9 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      
       - name: Run split_sql.sh
         run: |
           chmod +x .github/workflows/split_sql.sh
