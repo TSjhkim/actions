@@ -1,6 +1,8 @@
 git config --global user.email "jhkim0228@tangunsoft.com"
 git config --global user.name "TSjhkim"
-git config --global credential.helper cache
+
+ssh-keygen -t rsa -b 4096 -C "jhkim0228@tangunsoft.com"
+git remote set-url origin git@github.com:TSjhkim/actions1.git
 
 git clone https://github.com/TSjhkim/actions1.git
 cd actions1
