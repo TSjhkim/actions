@@ -13,4 +13,4 @@ find . -type f -name "*.sql" | while IFS= read -r file; do
     git commit -m "Add split SQL files from $file"
 done
 
-git push https://github.com/TSjhkim/actions1.git master
+git push git@github.com:TSjhkim/actions1.git master
