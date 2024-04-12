@@ -1,4 +1,4 @@
-name: Deploy SQL to MSSQL
+name: sql_mssql
 
 on:
   push:
