@@ -1,9 +1,10 @@
 name: GitActions Demo1
-on: push
+on: 
+  push
 jobs:
   GitActions-demo-job:
     name: Demo Job
-    runs-on: ubuntu latest
+    runs-on: ubuntu-latest
     steps:
       - name: Print a environment
         env:
